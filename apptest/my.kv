@@ -1,0 +1,177 @@
+<myLayout>
+    Button:
+        text: "senzor 1"
+        pos_hint: {"x":0.3, "top":0.85}
+        size_hint: 0.15,0.1
+        color:1,1,0.4
+        on_press: root.switch()
+        on_press: root.s1_data()
+    Button:
+        text: "rgb"
+        pos_hint: {"x":0.3, "top":0.7}
+        size_hint: 0.15,0.1
+        color:1,1,0.4
+        on_press: root.switch2rgb()
+    Button:
+        text: "comenzi"
+        pos_hint: {"x":0.3, "top":0.55}
+        size_hint: 0.15,0.1
+        color:1,1,0.4
+        on_press: root.switch2com()
+    Button:
+        text: "conectare API"
+        pos_hint: {"x":0.3, "top":0.4}
+        size_hint: 0.15,0.1
+        color:1,1,0.4
+        on_press: root.switch2set()
+
+
+<sen_1>
+    viewclass: 'Label'
+    RecycleBoxLayout:
+        default_size: None, 50
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+
+<lay_2>
+    Button:
+        text:"back"
+        size_hint: 0.15,0.1
+        pos_hint: {"x":0.05, "top":0.4}
+        on_press: root.switch()
+<set_layout>
+    input_url: input_urlID
+    BoxLayout:
+        size: root.width, root.height
+        orientation: "horizontal"
+        Label:
+            text: "Base Url:"
+            pos_hint: {"x":0.3, "top":1.35}
+        TextInput:
+            size_hint:(0.7, 0.1)
+            id: input_urlID
+            pos_hint: {"x":0.2, "top":0.9}
+            text:"http://127.0.0.1:8000"
+    Button:
+        text:"submit"
+        size_hint: 0.15,0.1
+        pos_hint: {"x":0.2, "top":0.9}
+        on_press:root.apiC()
+    Button:
+        text:"back"
+        size_hint: 0.15,0.1
+        pos_hint: {"x":0.2, "top":0.2}
+        on_press: root.switch()
+
+
+
+<comenzi_layout>
+    Button:
+        text:"<-"
+        size_hint: 0.1,0.1
+        pos_hint: {"x":0, "top":1}
+        on_press: root.switch()
+
+
+    Button:
+        text:"up"
+        size_hint: 0.15,0.15
+        pos_hint: {"x":0.8, "top":0.3}
+        on_press: root.up_com()
+        on_release: root.release_com()
+
+    Button:
+        text:"down"
+        size_hint: 0.15,0.15
+        pos_hint: {"x":0.65, "top":0.3}
+        on_press: root.down_com()
+        on_release: root.release_com()
+
+    Button:
+        text:"left"
+        size_hint: 0.15,0.15
+        pos_hint: {"x":0.05, "top":0.3}
+        on_press: root.left_com()
+        on_release: root.release_com()
+
+    Button:
+        text:"right"
+        size_hint: 0.15,0.15
+        pos_hint: {"x":0.2, "top":0.3}
+        on_press: root.right_com()
+        on_release: root.release_com()
+
+<MyRedSlider@Slider>:
+    canvas.before:
+        Color:
+            rgba: 1, 0, 0, 0.7  # Red color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+<MyBlueSlider@Slider>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, 1, 0.7  # Red color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+<MyGreenSlider@Slider>:
+    canvas.before:
+        Color:
+            rgba: 0, 1, 0, 0.7  # Red color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+
+<rgb_layout>
+    red_slider:red_sliderID
+    blue_slider:blue_sliderID
+    green_slider:green_sliderID
+    orientation: "vertical"
+    Button:
+        text:"<-"
+        size_hint: 0.1,0.1
+        pos_hint: {"x":0, "top":1}
+        on_press: root.switch()
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: 1,0.4
+        pos_hint: {"x":0, "top":0.7}
+        MyRedSlider:
+            orientation: "horizontal"
+            min: 0
+            max: 255
+            value: 0
+            step: 1
+            size_hint:0.5, 0.3
+            id:red_sliderID
+            on_value: root.update_button_color()
+
+        MyBlueSlider:
+            orientation: "horizontal"
+            min: 0
+            max: 255
+            value: 0
+            step: 1
+            size_hint:0.5, 0.3
+            id:blue_sliderID
+            on_value: root.update_button_color()
+
+        MyGreenSlider:
+            orientation: "horizontal"
+            min: 0
+            max: 255
+            value: 0
+            step: 1
+            size_hint:0.5, 0.3
+            id:green_sliderID
+            on_value: root.update_button_color()
+    Button:
+        text:"Submit"
+        id: color_button
+        size_hint: 0.3,0.2
+        pos_hint: {"x":0, "top":0.2}
+        on_press:root.submit_rgb()
