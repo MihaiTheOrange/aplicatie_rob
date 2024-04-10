@@ -7,11 +7,11 @@ from kivy.properties import ObjectProperty
 import requests
 from kivy.uix.slider import Slider
 
-BASE_URL='http://127.0.0.1:8000'
-
 
 def get_data_from_fastapi(endpoint):
     try:
+        app=App.get_running_app()
+        BASE_URL=app.base_url
         response = requests.get(BASE_URL+endpoint)
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
@@ -25,6 +25,8 @@ def get_data_from_fastapi(endpoint):
 
 
 def post_to_api(endpoint, payload):
+    app = App.get_running_app()
+    BASE_URL = app.base_url
     response = requests.post(BASE_URL+endpoint, json=payload)
     if response.status_code == 200:
         print('POST request was successful!')
@@ -81,6 +83,8 @@ class set_layout(BoxLayout):
         myapp.screen_manager.current = 'first'
     def apiC(self):
         print(self.input_url.text)
+        app=App.get_running_app()
+        app.base_url=self.input_url.text
 
 
 class comenzi_layout(FloatLayout):
@@ -138,7 +142,7 @@ class myApp(App):
     def build(self):
         self.screen_manager = ScreenManager()
         self.firstpage=myLayout()
-
+        self.base_url='http://192.168.1.146:8000'
         screen = Screen(name='first')
         screen.add_widget(self.firstpage)
         self.screen_manager.add_widget(screen)
