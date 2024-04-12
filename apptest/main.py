@@ -33,7 +33,7 @@ class myApp(App):
         self.screen_manager.add_widget(screen)
 
         self.rgbpage = rgb_layout(self)
-        screen=Screen(name='rgb')
+        screen = Screen(name='rgb')
         screen.add_widget(self.rgbpage)
         self.screen_manager.add_widget(screen)
 
