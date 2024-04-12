@@ -1,8 +1,5 @@
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager,Screen,SlideTransition
-from kivy.uix.recycleview import RecycleView
-from kivy.uix.boxlayout import BoxLayout
-from api import get_data_from_fastapi, post_to_api
+from kivy.uix.screenmanager import ScreenManager,Screen
 from layouts import myLayout, set_layout, comenzi_layout, rgb_layout, lay_2
 from subclass import RV
 
