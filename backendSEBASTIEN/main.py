@@ -10,7 +10,7 @@ models.Base.metadata.create_all(bind=engine)
 
 
 class Senzor1(BaseModel):
-    inp: Optional[str] = None
+    inp: Optional[int] = None
 
 
 def deschide():
@@ -29,10 +29,10 @@ sen1_router = APIRouter(
 )
 
 
-@sen1_router.get('/get', operation_id="sen1data")
-def get_data_query(limit: int = 10, db: Session = Depends(deschide)):
-    data = list(db.query(models.Senzor1).all())
-    return data[:limit]
+@sen1_router.get('', operation_id="sen1data")
+def get_data_query(db: Session = Depends(deschide)):
+    data = db.query(models.Senzor1).all()
+    return data
 
 
 @sen1_router.post('', operation_id="sen1post")
@@ -45,6 +45,7 @@ def create_log(log: Senzor1, db: Session = Depends(deschide)):
 
 
 app.include_router(sen1_router)
+
 
 comenzi_router = APIRouter(
     prefix='/comenzi',
@@ -67,9 +68,9 @@ def post_command(comanda: Com):
     return clist
 
 
-@comenzi_router.get('/get')
+@comenzi_router.get('/')
 def get_command():
-    string=''.join(map(str, clist[0].comenzi)) + ' ' + ' '.join(map(str, clist[0].rgb))
-    return string.strip()
+    return ''.join(map(str, clist[0].comenzi))+' '+' '.join(map(str, clist[0].rgb))
+
 
 app.include_router(comenzi_router)

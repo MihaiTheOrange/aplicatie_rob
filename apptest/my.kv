@@ -36,11 +36,24 @@
         orientation: 'vertical'
 
 <lay_2>
+    orientation: 'vertical'
+    RV:
+        id: rv
+        viewclass: 'Label'
+        RecycleBoxLayout:
+            default_size: None, dp(56)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: 'vertical'
     Button:
         text:"back"
         size_hint: 0.15,0.1
         pos_hint: {"x":0.05, "top":0.4}
         on_press: root.switch()
+
+
+
 <set_layout>
     input_url: input_urlID
     BoxLayout:
