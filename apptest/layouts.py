@@ -9,8 +9,6 @@ from subclass import RV
 from kivy.clock import Clock
 
 
-import json
-
 class myLayout(FloatLayout):
     def __init__(self, app):
         super().__init__()
@@ -63,23 +61,23 @@ class comenzi_layout(FloatLayout):
 
     def up_com(self):
         payload={"comenzi":[0, 0, 0, 1], "rgb":[0, 0, 0]}
-        post_to_api('/comenzi', payload, self.app)
+        post_to_api('/comenzi/post', payload, self.app)
 
     def down_com(self):
         payload={"comenzi":[0, 0, 1, 0], "rgb":[0, 0, 0]}
-        post_to_api('/comenzi', payload, self.app)
+        post_to_api('/comenzi/post', payload, self.app)
 
     def left_com(self):
         payload={"comenzi":[1, 0, 0, 0], "rgb":[0, 0, 0]}
-        post_to_api('/comenzi', payload, self.app)
+        post_to_api('/comenzi/post', payload, self.app)
 
     def right_com(self):
         payload={"comenzi":[0, 1, 0, 0], "rgb":[0, 0, 0]}
-        post_to_api('/comenzi', payload, self.app)
+        post_to_api('/comenzi/post', payload, self.app)
 
     def release_com(self):
         payload={"comenzi":[0, 0, 0, 0], "rgb":[0, 0, 0]}
-        post_to_api('/comenzi', payload, self.app)
+        post_to_api('/comenzi/post', payload, self.app)
 
 
 class rgb_layout(FloatLayout):
@@ -102,7 +100,7 @@ class rgb_layout(FloatLayout):
         green = self.ids.green_sliderID.value
         blue = self.ids.blue_sliderID.value
         payload = {"comenzi":[0,0,0,0], "rgb":[red,green,blue]}
-        post_to_api('/comenzi', payload, self.app)
+        post_to_api('/comenzi/post', payload, self.app)
 
     def update_button_color(self):
         red=self.ids.red_sliderID.value / 255
@@ -119,7 +117,7 @@ class lay_2(BoxLayout):
         Clock.schedule_interval(self.update_data, 3)
 
     def update_data(self, dt=None):
-        url = self.app.base_url+'/sen1'
+        url = self.app.base_url+'/sen1/get'
         UrlRequest(url, self.parse_data)
 
     def parse_data(self, req, result):

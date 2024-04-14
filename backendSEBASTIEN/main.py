@@ -29,13 +29,13 @@ sen1_router = APIRouter(
 )
 
 
-@sen1_router.get('', operation_id="sen1data")
+@sen1_router.get('/get', operation_id="sen1data")
 def get_data_query(db: Session = Depends(deschide)):
     data = db.query(models.Senzor1).all()
     return data
 
 
-@sen1_router.post('', operation_id="sen1post")
+@sen1_router.post('/post', operation_id="sen1post")
 def create_log(log: Senzor1, db: Session = Depends(deschide)):
     log_model = models.Senzor1()
     log_model.inp = log.inp
@@ -61,14 +61,14 @@ class Com(BaseModel):
 clist = [Com(comenzi=[0,0,0,0], rgb=[0,0,0])]
 
 
-@comenzi_router.post('/')
+@comenzi_router.post('/post')
 def post_command(comanda: Com):
     clist.insert(0, comanda)
     clist.pop()
     return clist
 
 
-@comenzi_router.get('/')
+@comenzi_router.get('/get')
 def get_command():
     return ''.join(map(str, clist[0].comenzi))+' '+' '.join(map(str, clist[0].rgb))
 
